@@ -1,5 +1,10 @@
+import { Editor } from '@components/editor/Editor'
 import { type FC } from 'react'
 
 export const App: FC = () => {
-	return <div>Rune</div>
+	return (
+		<main className="h-svh">
+			<Editor />
+		</main>
+	)
 }
