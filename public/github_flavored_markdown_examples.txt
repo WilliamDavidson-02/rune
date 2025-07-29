@@ -1,0 +1,100 @@
+  
+# GitHub Flavored Markdown Examples
+
+## 1. Headings
+# H1
+## H2
+### H3
+#### H4
+##### H5
+###### H6
+
+## 2. Emphasis
+*Italic* or _Italic_  
+**Bold** or __Bold__  
+~~Strikethrough~~
+
+## 3. Lists
+### Unordered
+- Item 1
+- Item 2
+  - Subitem 2.1
+  - Subitem 2.2
+
+### Ordered
+1. First
+2. Second
+   1. Sub-second
+
+## 4. Links
+[GitHub](https://github.com)
+
+## 5. Images
+![Octocat](https://github.githubassets.com/images/modules/logos_page/Octocat.png)
+
+## 6. Blockquotes
+> This is a blockquote
+
+## 7. Inline Code
+Use the `printf()` function.
+
+## 8. Code Blocks
+```javascript
+function hello() {
+  console.log("Hello, world!");
+}
+```
+
+## 9. Tables
+| Syntax | Description |
+|--------|-------------|
+| Header | Title       |
+| Paragraph | Text     |
+
+## 10. Task Lists
+- [x] Task 1
+- [ ] Task 2
+
+## 11. Strikethrough
+~~This text is struck through~~
+
+## 12. Mentions and References
+@github
+#1
+GH-1
+
+## 13. Emoji
+:+1: :smile: :tada:
+
+## 14. Footnotes
+Here is a footnote reference[^1].  
+[^1]: Here is the footnote.
+
+## 15. HTML Tags
+<details>
+  <summary>Click to expand</summary>
+  Hidden content
+</details>
+
+## 16. Alerts (via Markdown extensions)
+> **Note**  
+> This is a note alert.
+
+> **Warning**  
+> This is a warning alert.
+
+## 17. Math (via Markdown extensions like KaTeX or MathJax)
+Inline math: \( E = mc^2 \)  
+Block math:
+$$
+\nabla \cdot \vec{E} = \frac{\rho}{\varepsilon_0}
+$$
+
+## 18. Diagrams (via Mermaid)
+\`\`\`mermaid
+graph TD
+  A[Start] --> B{Is it working?}
+  B -- Yes --> C[Great]
+  B -- No --> D[Fix it]
+  D --> B
+\`\`\`

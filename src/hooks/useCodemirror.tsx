@@ -11,6 +11,13 @@ import { useEffect, useRef } from 'react'
 export const useCodeMirror = <T extends Element>() => {
 	const editorRef = useRef<T | null>(null)
 
+	const setPlaceholder = async (view: EditorView) => {
+		const res = await fetch('./github_flavored_markdown_examples.txt')
+		const txt = await res.text()
+
+		view.dispatch({ changes: { from: 0, insert: txt } })
+	}
+
 	useEffect(() => {
 		const isEditorCreated = editorRef.current?.innerHTML !== ''
 		if (!editorRef.current || isEditorCreated) return
@@ -38,6 +45,7 @@ export const useCodeMirror = <T extends Element>() => {
 			parent: editorRef.current
 		})
 		view.focus()
+		setPlaceholder(view)
 	}, [editorRef])
 
 	return { editorRef }
