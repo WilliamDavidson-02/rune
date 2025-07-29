@@ -3,7 +3,7 @@ import { markdown, markdownLanguage } from '@codemirror/lang-markdown'
 import { bracketMatching } from '@codemirror/language'
 import { languages } from '@codemirror/language-data'
 import { EditorState } from '@codemirror/state'
-import { EditorView, keymap } from '@codemirror/view'
+import { drawSelection, EditorView, keymap } from '@codemirror/view'
 import { closeBrackets, closeBracketsKeymap } from '@codemirror/autocomplete'
 import { baseTheme } from '@components/editor/themes/baseTheme'
 import { useEffect, useRef } from 'react'
@@ -27,7 +27,9 @@ export const useCodeMirror = <T extends Element>() => {
 					addKeymap: true
 				}),
 				bracketMatching(),
-				closeBrackets()
+				closeBrackets(),
+				EditorState.allowMultipleSelections.of(true),
+				drawSelection()
 			]
 		})
 
