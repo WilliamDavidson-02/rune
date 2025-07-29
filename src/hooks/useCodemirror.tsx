@@ -1,8 +1,10 @@
 import { defaultKeymap, history, historyKeymap } from '@codemirror/commands'
 import { markdown, markdownLanguage } from '@codemirror/lang-markdown'
+import { bracketMatching } from '@codemirror/language'
 import { languages } from '@codemirror/language-data'
 import { EditorState } from '@codemirror/state'
 import { EditorView, keymap } from '@codemirror/view'
+import { closeBrackets, closeBracketsKeymap } from '@codemirror/autocomplete'
 import { baseTheme } from '@components/editor/themes/baseTheme'
 import { useEffect, useRef } from 'react'
 
@@ -16,14 +18,16 @@ export const useCodeMirror = <T extends Element>() => {
 		const state = EditorState.create({
 			doc: '',
 			extensions: [
-				keymap.of([...defaultKeymap, ...historyKeymap]),
+				baseTheme,
+				keymap.of([...defaultKeymap, ...historyKeymap, ...closeBracketsKeymap]),
 				history(),
 				markdown({
 					base: markdownLanguage,
 					codeLanguages: languages,
 					addKeymap: true
 				}),
-				baseTheme
+				bracketMatching(),
+				closeBrackets()
 			]
 		})
 
