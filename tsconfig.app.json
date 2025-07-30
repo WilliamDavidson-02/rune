@@ -28,7 +28,9 @@
 		"paths": {
 			"@/*": [""],
 			"@components/*": ["./components/*"],
-			"@hooks/*": ["./hooks/*"]
+			"@hooks/*": ["./hooks/*"],
+			"@lib/*": ["./lib/*"],
+			"@stores/*": ["./stores/*"]
 		}
 	},
 	"include": ["src"]

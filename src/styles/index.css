@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @import './jetbrains-mono.css';
+@import './codemirror.css';
 
 * {
 	font-family: 'JetBrains Mono', monospace;

@@ -1,0 +1,3 @@
+.cm-panels.cm-panels-top {
+	@apply fixed mr-4 ml-auto w-fit rounded-bl-sm border-none;
+}
