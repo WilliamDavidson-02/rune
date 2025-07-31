@@ -1,4 +1,4 @@
-import { useEffect, useState, type FC } from "react"
+import { useEffect, useState, type FC } from 'react'
 import {
 	closeSearchPanel,
 	findNext,
@@ -8,12 +8,22 @@ import {
 	replaceNext,
 	SearchQuery,
 	setSearchQuery
-} from "@codemirror/search"
-import { EditorSelection } from "@codemirror/state"
-import { EditorView, runScopeHandlers } from "@codemirror/view"
+} from '@codemirror/search'
+import { EditorSelection } from '@codemirror/state'
+import { EditorView, runScopeHandlers } from '@codemirror/view'
+import {
+	ArrowDown,
+	ArrowUp,
+	CaseSensitive,
+	Regex,
+	Replace,
+	ReplaceAll,
+	WholeWord,
+	X
+} from 'lucide-react'
 
-import { Button } from "@components/core/Button"
-import { Input } from "@components/core/Input"
+import { Button } from '@components/core/Button'
+import { Input } from '@components/core/Input'
 
 export type SearchReplaceProps = {
 	view: EditorView
@@ -27,10 +37,22 @@ type Query = {
 	wholeWord: boolean
 }
 
+const InputField: FC<React.ComponentPropsWithRef<'div'>> = ({ children }) => {
+	return (
+		<div className="col-span-2 flex gap-2 self-center bg-white px-2 rounded-sm">
+			{children}
+		</div>
+	)
+}
+
+const ActionField: FC<React.ComponentPropsWithRef<'div'>> = ({ children }) => {
+	return <div className="ml-auto flex align-middle gap-2">{children}</div>
+}
+
 export const SearchReplace: FC<SearchReplaceProps> = ({ view }) => {
 	const [query, setQuery] = useState<Query>({
-		search: "",
-		replace: "",
+		search: '',
+		replace: '',
 		caseSensitive: false,
 		regexp: false,
 		wholeWord: false
@@ -73,17 +95,17 @@ export const SearchReplace: FC<SearchReplaceProps> = ({ view }) => {
 
 		view.dispatch({
 			selection: EditorSelection.single(from, to),
-			userEvent: "select.search"
+			userEvent: 'select.search'
 		})
 
 		view.dispatch({
-			effects: EditorView.scrollIntoView(from, { y: "center" })
+			effects: EditorView.scrollIntoView(from, { y: 'center' })
 		})
 	}
 
 	const handleKeyDown = (ev: React.KeyboardEvent<HTMLInputElement>) => {
 		// Since the panel is out of the scope of the editor we check if the command is in the scope of the serach panel keybindings
-		if (runScopeHandlers(view, ev.nativeEvent, "search-panel")) {
+		if (runScopeHandlers(view, ev.nativeEvent, 'search-panel')) {
 			ev.preventDefault()
 		}
 	}
@@ -91,7 +113,7 @@ export const SearchReplace: FC<SearchReplaceProps> = ({ view }) => {
 	return (
 		<div className="flex flex-col gap-1 p-2" onKeyDown={handleKeyDown}>
 			<div className="grid grid-cols-3">
-				<div className="col-span-2 flex gap-2 self-center">
+				<InputField>
 					<Input
 						name="search"
 						placeholder="Find"
@@ -102,7 +124,7 @@ export const SearchReplace: FC<SearchReplaceProps> = ({ view }) => {
 						onChange={(ev) =>
 							handleSearchQuery({ ...query, search: ev.target.value }, view)
 						}
-						className="flex-grow text-sm"
+						className="flex-grow text-sm p-0"
 					/>
 					<Button
 						name="caseSensitive"
@@ -113,7 +135,7 @@ export const SearchReplace: FC<SearchReplaceProps> = ({ view }) => {
 							)
 						}
 					>
-						MC
+						<CaseSensitive size={16} />
 					</Button>
 					<Button
 						name="wholeWord"
@@ -121,7 +143,7 @@ export const SearchReplace: FC<SearchReplaceProps> = ({ view }) => {
 							handleSearchQuery({ ...query, wholeWord: !query.wholeWord }, view)
 						}
 					>
-						WW
+						<WholeWord size={16} />
 					</Button>
 					<Button
 						name="regepx"
@@ -129,23 +151,23 @@ export const SearchReplace: FC<SearchReplaceProps> = ({ view }) => {
 							handleSearchQuery({ ...query, regexp: !query.regexp }, view)
 						}
 					>
-						RE
+						<Regex size={16} />
 					</Button>
-				</div>
-				<div className="ml-auto self-center">
+				</InputField>
+				<ActionField>
 					<Button name="findPrevious" onClick={() => findPrevious(view)}>
-						&uarr;
+						<ArrowUp size={16} />
 					</Button>
 					<Button name="findNext" onClick={() => findNext(view)}>
-						&darr;
+						<ArrowDown size={16} />
 					</Button>
 					<Button name="close" onClick={() => closeSearchPanel(view)}>
-						&#10005;
+						<X size={16} />
 					</Button>
-				</div>
+				</ActionField>
 			</div>
 			<div className="grid grid-cols-3">
-				<div className="col-span-2 flex gap-2 self-center">
+				<InputField>
 					<Input
 						name="replace"
 						placeholder="Replace"
@@ -154,15 +176,17 @@ export const SearchReplace: FC<SearchReplaceProps> = ({ view }) => {
 						onChange={(ev) =>
 							handleSearchQuery({ ...query, replace: ev.target.value }, view)
 						}
-						className="flex-grow text-sm"
+						className="flex-grow text-sm p-0"
 					/>
+				</InputField>
+				<ActionField>
 					<Button name="replace" onClick={() => replaceNext(view)}>
-						RN
+						<Replace size={16} />
 					</Button>
 					<Button name="replaceAll" onClick={() => replaceAll(view)}>
-						RA
+						<ReplaceAll size={16} />
 					</Button>
-				</div>
+				</ActionField>
 			</div>
 		</div>
 	)
