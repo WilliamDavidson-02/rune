@@ -1,5 +1,6 @@
-import { type FC } from 'react'
-import { useCodeMirror } from '@hooks/useCodemirror'
+import { type FC } from "react"
+
+import { useCodeMirror } from "@hooks/useCodemirror"
 
 export const Editor: FC = () => {
 	const { editorRef } = useCodeMirror<HTMLDivElement>()

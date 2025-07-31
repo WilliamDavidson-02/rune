@@ -1,5 +1,6 @@
-import { Editor } from '@components/editor/Editor'
-import { type FC } from 'react'
+import { type FC } from "react"
+
+import { Editor } from "@components/editor/Editor"
 
 export const App: FC = () => {
 	return (

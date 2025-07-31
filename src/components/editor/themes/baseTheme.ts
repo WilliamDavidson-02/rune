@@ -1,4 +1,4 @@
-import { EditorView } from '@codemirror/view'
+import { EditorView } from "@codemirror/view"
 
 //  <div class="cm-editor [theme scope classes]">
 //   <div class="cm-scroller">
@@ -10,12 +10,12 @@ import { EditorView } from '@codemirror/view'
 // </div>
 
 export const baseTheme = EditorView.baseTheme({
-	'&': {
-		maxHeight: 'inherit',
-		height: 'inherit',
+	"&": {
+		maxHeight: "inherit",
+		height: "inherit",
 		fontFamily: "'JetBrains Mono', monospace"
 	},
-	'&.cm-focused': {
-		outline: 'none'
+	"&.cm-focused": {
+		outline: "none"
 	}
 })

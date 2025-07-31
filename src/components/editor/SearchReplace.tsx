@@ -1,5 +1,4 @@
-import { useEffect, useState, type FC } from 'react'
-import { EditorView, runScopeHandlers } from '@codemirror/view'
+import { useEffect, useState, type FC } from "react"
 import {
 	closeSearchPanel,
 	findNext,
@@ -9,10 +8,12 @@ import {
 	replaceNext,
 	SearchQuery,
 	setSearchQuery
-} from '@codemirror/search'
-import { Input } from '@components/core/Input'
-import { EditorSelection } from '@codemirror/state'
-import { Button } from '@components/core/Button'
+} from "@codemirror/search"
+import { EditorSelection } from "@codemirror/state"
+import { EditorView, runScopeHandlers } from "@codemirror/view"
+
+import { Button } from "@components/core/Button"
+import { Input } from "@components/core/Input"
 
 export type SearchReplaceProps = {
 	view: EditorView
@@ -28,8 +29,8 @@ type Query = {
 
 export const SearchReplace: FC<SearchReplaceProps> = ({ view }) => {
 	const [query, setQuery] = useState<Query>({
-		search: '',
-		replace: '',
+		search: "",
+		replace: "",
 		caseSensitive: false,
 		regexp: false,
 		wholeWord: false
@@ -72,17 +73,17 @@ export const SearchReplace: FC<SearchReplaceProps> = ({ view }) => {
 
 		view.dispatch({
 			selection: EditorSelection.single(from, to),
-			userEvent: 'select.search'
+			userEvent: "select.search"
 		})
 
 		view.dispatch({
-			effects: EditorView.scrollIntoView(from, { y: 'center' })
+			effects: EditorView.scrollIntoView(from, { y: "center" })
 		})
 	}
 
 	const handleKeyDown = (ev: React.KeyboardEvent<HTMLInputElement>) => {
 		// Since the panel is out of the scope of the editor we check if the command is in the scope of the serach panel keybindings
-		if (runScopeHandlers(view, ev.nativeEvent, 'search-panel')) {
+		if (runScopeHandlers(view, ev.nativeEvent, "search-panel")) {
 			ev.preventDefault()
 		}
 	}
@@ -98,26 +99,35 @@ export const SearchReplace: FC<SearchReplaceProps> = ({ view }) => {
 						main-field="true"
 						autoFocus
 						value={query.search}
-						onChange={(ev) => handleSearchQuery({ ...query, search: ev.target.value }, view)}
+						onChange={(ev) =>
+							handleSearchQuery({ ...query, search: ev.target.value }, view)
+						}
 						className="flex-grow text-sm"
 					/>
 					<Button
 						name="caseSensitive"
 						onClick={() =>
-							handleSearchQuery({ ...query, caseSensitive: !query.caseSensitive }, view)
+							handleSearchQuery(
+								{ ...query, caseSensitive: !query.caseSensitive },
+								view
+							)
 						}
 					>
 						MC
 					</Button>
 					<Button
 						name="wholeWord"
-						onClick={() => handleSearchQuery({ ...query, wholeWord: !query.wholeWord }, view)}
+						onClick={() =>
+							handleSearchQuery({ ...query, wholeWord: !query.wholeWord }, view)
+						}
 					>
 						WW
 					</Button>
 					<Button
 						name="regepx"
-						onClick={() => handleSearchQuery({ ...query, regexp: !query.regexp }, view)}
+						onClick={() =>
+							handleSearchQuery({ ...query, regexp: !query.regexp }, view)
+						}
 					>
 						RE
 					</Button>
@@ -141,7 +151,9 @@ export const SearchReplace: FC<SearchReplaceProps> = ({ view }) => {
 						placeholder="Replace"
 						aria-label="Replace"
 						value={query.replace}
-						onChange={(ev) => handleSearchQuery({ ...query, replace: ev.target.value }, view)}
+						onChange={(ev) =>
+							handleSearchQuery({ ...query, replace: ev.target.value }, view)
+						}
 						className="flex-grow text-sm"
 					/>
 					<Button name="replace" onClick={() => replaceNext(view)}>
