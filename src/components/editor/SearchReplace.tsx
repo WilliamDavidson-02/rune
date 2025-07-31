@@ -11,6 +11,8 @@ import {
 } from '@codemirror/search'
 import { EditorSelection } from '@codemirror/state'
 import { EditorView, runScopeHandlers } from '@codemirror/view'
+import { HoverCardTrigger } from '@radix-ui/react-hover-card'
+import { Toggle } from '@radix-ui/react-toggle'
 import {
 	ArrowDown,
 	ArrowUp,
@@ -23,6 +25,7 @@ import {
 } from 'lucide-react'
 
 import { Button } from '@components/core/Button'
+import { HoverCard, HoverCardContent } from '@components/core/HoverCard'
 import { Input } from '@components/core/Input'
 import { Text } from '@components/core/Text'
 
@@ -159,7 +162,7 @@ export const SearchReplace: FC<SearchReplaceProps> = ({ view }) => {
 	}
 
 	return (
-		<div className="flex flex-col gap-1 p-2" onKeyDown={handleKeyDown}>
+		<div className="flex flex-col gap-1 p-2 relative" onKeyDown={handleKeyDown}>
 			<div className="grid grid-cols-3">
 				<InputField>
 					<Input
@@ -174,54 +177,98 @@ export const SearchReplace: FC<SearchReplaceProps> = ({ view }) => {
 						}
 						className="flex-grow text-sm p-0"
 					/>
-					<Button
-						name="caseSensitive"
-						onClick={() =>
-							handleSearchQuery(
-								{ ...query, caseSensitive: !query.caseSensitive },
-								view
-							)
-						}
-					>
-						<CaseSensitive size={16} />
-					</Button>
-					<Button
-						name="wholeWord"
-						onClick={() =>
-							handleSearchQuery({ ...query, wholeWord: !query.wholeWord }, view)
-						}
-					>
-						<WholeWord size={16} />
-					</Button>
-					<Button
-						name="regepx"
-						onClick={() =>
-							handleSearchQuery({ ...query, regexp: !query.regexp }, view)
-						}
-					>
-						<Regex size={16} />
-					</Button>
+					<HoverCard>
+						<HoverCardTrigger asChild>
+							<Toggle aria-label="Toggle case sensitive" asChild>
+								<Button
+									onClick={() =>
+										handleSearchQuery(
+											{ ...query, caseSensitive: !query.caseSensitive },
+											view
+										)
+									}
+								>
+									<CaseSensitive size={16} />
+								</Button>
+							</Toggle>
+						</HoverCardTrigger>
+						<HoverCardContent>
+							<Text>Case sensitive</Text>
+						</HoverCardContent>
+					</HoverCard>
+					<HoverCard>
+						<HoverCardTrigger asChild>
+							<Toggle aria-label="Toggle whole word" asChild>
+								<Button
+									onClick={() =>
+										handleSearchQuery(
+											{ ...query, wholeWord: !query.wholeWord },
+											view
+										)
+									}
+								>
+									<WholeWord size={16} />
+								</Button>
+							</Toggle>
+						</HoverCardTrigger>
+						<HoverCardContent>
+							<Text>Whole word</Text>
+						</HoverCardContent>
+					</HoverCard>
+					<HoverCard>
+						<HoverCardTrigger asChild>
+							<Toggle aria-label="Toggle regexp" asChild>
+								<Button
+									onClick={() =>
+										handleSearchQuery({ ...query, regexp: !query.regexp }, view)
+									}
+								>
+									<Regex size={16} />
+								</Button>
+							</Toggle>
+						</HoverCardTrigger>
+						<HoverCardContent>
+							<Text>Regexp</Text>
+						</HoverCardContent>
+					</HoverCard>
 				</InputField>
 				<div className="flex justify-between gap-4 ml-2">
 					{matches && (
 						<Text className="text-sm my-auto w-fit">{`${matches.current} of ${matches.count}`}</Text>
 					)}
 					<ActionField>
-						<Button
-							name="findPrevious"
-							onClick={() => handleActionMethods(findPrevious, view)}
-						>
-							<ArrowUp size={16} />
-						</Button>
-						<Button
-							name="findNext"
-							onClick={() => handleActionMethods(findNext, view)}
-						>
-							<ArrowDown size={16} />
-						</Button>
-						<Button name="close" onClick={() => closeSearchPanel(view)}>
-							<X size={16} />
-						</Button>
+						<HoverCard>
+							<HoverCardTrigger asChild>
+								<Button onClick={() => handleActionMethods(findPrevious, view)}>
+									<ArrowUp size={16} />
+								</Button>
+							</HoverCardTrigger>
+							<HoverCardContent>
+								<Text>Find previous</Text>
+							</HoverCardContent>
+						</HoverCard>
+
+						<HoverCard>
+							<HoverCardTrigger asChild>
+								<Button onClick={() => handleActionMethods(findNext, view)}>
+									<ArrowDown size={16} />
+								</Button>
+							</HoverCardTrigger>
+							<HoverCardContent>
+								<Text>Find next</Text>
+							</HoverCardContent>
+						</HoverCard>
+
+						<HoverCard>
+							<HoverCardTrigger asChild>
+								<Button onClick={() => closeSearchPanel(view)}>
+									<X size={16} />
+								</Button>
+							</HoverCardTrigger>
+							<HoverCardContent>
+								<Text>Close search</Text>
+							</HoverCardContent>
+						</HoverCard>
 					</ActionField>
 				</div>
 			</div>
@@ -239,18 +286,27 @@ export const SearchReplace: FC<SearchReplaceProps> = ({ view }) => {
 					/>
 				</InputField>
 				<ActionField>
-					<Button
-						name="replace"
-						onClick={() => handleActionMethods(replaceNext, view)}
-					>
-						<Replace size={16} />
-					</Button>
-					<Button
-						name="replaceAll"
-						onClick={() => handleActionMethods(replaceAll, view)}
-					>
-						<ReplaceAll size={16} />
-					</Button>
+					<HoverCard>
+						<HoverCardTrigger asChild>
+							<Button onClick={() => handleActionMethods(replaceNext, view)}>
+								<Replace size={16} />
+							</Button>
+						</HoverCardTrigger>
+						<HoverCardContent>
+							<Text>Replace next</Text>
+						</HoverCardContent>
+					</HoverCard>
+
+					<HoverCard>
+						<HoverCardTrigger asChild>
+							<Button onClick={() => handleActionMethods(replaceAll, view)}>
+								<ReplaceAll size={16} />
+							</Button>
+						</HoverCardTrigger>
+						<HoverCardContent>
+							<Text>Replace all</Text>
+						</HoverCardContent>
+					</HoverCard>
 				</ActionField>
 			</div>
 		</div>
