@@ -1,4 +1,4 @@
-import { useEffect, useState, type FC } from 'react'
+import { useEffect, useState, type FC } from "react"
 import {
 	closeSearchPanel,
 	findNext,
@@ -8,11 +8,11 @@ import {
 	replaceNext,
 	SearchQuery,
 	setSearchQuery
-} from '@codemirror/search'
-import { EditorSelection } from '@codemirror/state'
-import { EditorView, runScopeHandlers } from '@codemirror/view'
-import { HoverCardTrigger } from '@radix-ui/react-hover-card'
-import { Toggle } from '@radix-ui/react-toggle'
+} from "@codemirror/search"
+import { EditorSelection } from "@codemirror/state"
+import { EditorView, runScopeHandlers } from "@codemirror/view"
+import { HoverCardTrigger } from "@radix-ui/react-hover-card"
+import { Toggle } from "@radix-ui/react-toggle"
 import {
 	ArrowDown,
 	ArrowUp,
@@ -22,12 +22,12 @@ import {
 	ReplaceAll,
 	WholeWord,
 	X
-} from 'lucide-react'
+} from "lucide-react"
 
-import { Button } from '@components/core/Button'
-import { HoverCard, HoverCardContent } from '@components/core/HoverCard'
-import { Input } from '@components/core/Input'
-import { Text } from '@components/core/Text'
+import { Button } from "@components/core/Button"
+import { HoverCard, HoverCardContent } from "@components/core/HoverCard"
+import { Input } from "@components/core/Input"
+import { Text } from "@components/core/Text"
 
 export type SearchReplaceProps = {
 	view: EditorView
@@ -46,7 +46,15 @@ type Matches = {
 	current: number
 }
 
-const InputField: FC<React.ComponentPropsWithRef<'div'>> = ({ children }) => {
+const defaultQuery: Query = {
+	search: "",
+	replace: "",
+	caseSensitive: false,
+	regexp: false,
+	wholeWord: false
+}
+
+const InputField: FC<React.ComponentPropsWithRef<"div">> = ({ children }) => {
 	return (
 		<div className="col-span-2 flex gap-2 self-center bg-white px-2 rounded-sm">
 			{children}
@@ -54,24 +62,20 @@ const InputField: FC<React.ComponentPropsWithRef<'div'>> = ({ children }) => {
 	)
 }
 
-const ActionField: FC<React.ComponentPropsWithRef<'div'>> = ({ children }) => {
+const ActionField: FC<React.ComponentPropsWithRef<"div">> = ({ children }) => {
 	return <div className="ml-auto flex align-middle gap-2">{children}</div>
 }
 
 export const SearchReplace: FC<SearchReplaceProps> = ({ view }) => {
-	const [query, setQuery] = useState<Query>({
-		search: '',
-		replace: '',
-		caseSensitive: false,
-		regexp: false,
-		wholeWord: false
-	})
+	const [query, setQuery] = useState<Query>(defaultQuery)
 	const [matches, setMatches] = useState<Matches>()
 
 	useEffect(() => {
 		// Editor state still has the prev query when closed there for we load that query when we open the serach component
 		const editorQuery = getSearchQuery(view.state)
 		const initalQuery = { ...query }
+
+		console.log({ editorQuery, initalQuery })
 
 		for (const [key, value] of Object.entries(editorQuery)) {
 			const correctKey = key as keyof typeof initalQuery
@@ -92,7 +96,7 @@ export const SearchReplace: FC<SearchReplaceProps> = ({ view }) => {
 
 	const getSearchMatches = (query: SearchQuery, view: EditorView) => {
 		const cursor = query.getCursor(view.state)
-		const counter = { count: 0, current: 1 }
+		const counter = { count: 0, current: 0 }
 
 		const { from, to } = view.state.selection.main
 
@@ -133,19 +137,22 @@ export const SearchReplace: FC<SearchReplaceProps> = ({ view }) => {
 
 		view.dispatch({
 			selection: EditorSelection.single(from, to),
-			userEvent: 'select.search'
+			userEvent: "select.search"
 		})
 
 		view.dispatch({
-			effects: EditorView.scrollIntoView(from, { y: 'center' })
+			effects: EditorView.scrollIntoView(from, { y: "center" })
 		})
 
 		setMatches(getSearchMatches(query, view))
 	}
 
-	const handleKeyDown = (ev: React.KeyboardEvent<HTMLInputElement>) => {
+	const handleKeyDown = (
+		ev: React.KeyboardEvent<HTMLDivElement>,
+		view: EditorView
+	) => {
 		// Since the panel is out of the scope of the editor we check if the command is in the scope of the serach panel keybindings
-		if (runScopeHandlers(view, ev.nativeEvent, 'search-panel')) {
+		if (runScopeHandlers(view, ev.nativeEvent, "search-panel")) {
 			ev.preventDefault()
 			const query = getSearchQuery(view.state)
 			setMatches(getSearchMatches(query, view))
@@ -164,7 +171,10 @@ export const SearchReplace: FC<SearchReplaceProps> = ({ view }) => {
 	}
 
 	return (
-		<div className="flex flex-col gap-1 p-2 relative" onKeyDown={handleKeyDown}>
+		<div
+			className="flex flex-col gap-1 p-2 relative"
+			onKeyDown={(ev) => handleKeyDown(ev, view)}
+		>
 			<div className="grid grid-cols-3">
 				<InputField>
 					<Input

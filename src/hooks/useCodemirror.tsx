@@ -51,9 +51,7 @@ export const useCodeMirror = <T extends Element>() => {
 						createComponentPanel({
 							component: <SearchReplace view={view} />,
 							options: { top: true }
-						}),
-					scrollToMatch: (range) =>
-						EditorView.scrollIntoView(range, { y: "center" })
+						})
 				})
 			]
 		})

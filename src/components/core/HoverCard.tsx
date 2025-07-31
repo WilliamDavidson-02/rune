@@ -1,9 +1,9 @@
-import { type FC, type ReactNode } from 'react'
+import { type FC, type ReactNode } from "react"
 import {
 	HoverCardContent as Content,
 	HoverCardArrow,
 	HoverCard as Root
-} from '@radix-ui/react-hover-card'
+} from "@radix-ui/react-hover-card"
 
 export type HoverCardProps = React.ComponentPropsWithoutRef<typeof Root> & {
 	children: ReactNode
