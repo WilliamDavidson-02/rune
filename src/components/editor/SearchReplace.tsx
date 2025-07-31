@@ -83,7 +83,9 @@ export const SearchReplace: FC<SearchReplaceProps> = ({ view }) => {
 		}
 
 		const matchQuery = getSearchQuery(view.state)
-		setMatches(getSearchMatches(matchQuery, view))
+		if (matchQuery.search) {
+			setMatches(getSearchMatches(matchQuery, view))
+		}
 
 		setQuery(initalQuery)
 	}, [])
