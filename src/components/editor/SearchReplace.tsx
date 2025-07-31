@@ -24,6 +24,7 @@ import {
 
 import { Button } from '@components/core/Button'
 import { Input } from '@components/core/Input'
+import { Text } from '@components/core/Text'
 
 export type SearchReplaceProps = {
 	view: EditorView
@@ -35,6 +36,11 @@ type Query = {
 	caseSensitive: boolean
 	regexp: boolean
 	wholeWord: boolean
+}
+
+type Matches = {
+	count: number
+	current: number
 }
 
 const InputField: FC<React.ComponentPropsWithRef<'div'>> = ({ children }) => {
@@ -57,6 +63,7 @@ export const SearchReplace: FC<SearchReplaceProps> = ({ view }) => {
 		regexp: false,
 		wholeWord: false
 	})
+	const [matches, setMatches] = useState<Matches>()
 
 	useEffect(() => {
 		// Editor state still has the prev query when closed there for we load that query when we open the serach component
@@ -72,8 +79,30 @@ export const SearchReplace: FC<SearchReplaceProps> = ({ view }) => {
 			}
 		}
 
+		const matchQuery = getSearchQuery(view.state)
+		setMatches(getSearchMatches(matchQuery, view))
+
 		setQuery(initalQuery)
 	}, [])
+
+	const getSearchMatches = (query: SearchQuery, view: EditorView) => {
+		const cursor = query.getCursor(view.state)
+		const counter = { count: 0, current: 1 }
+
+		const { from, to } = view.state.selection.main
+
+		let item = cursor.next()
+		while (!item.done) {
+			if (item.value.from === from && item.value.to === to) {
+				counter.current = counter.count + 1
+			}
+
+			item = cursor.next()
+			counter.count++
+		}
+
+		return counter
+	}
 
 	const handleSearchQuery = (newQuery: Query, view: EditorView) => {
 		setQuery(newQuery)
@@ -86,7 +115,11 @@ export const SearchReplace: FC<SearchReplaceProps> = ({ view }) => {
 		const query = getSearchQuery(view.state)
 		const cursor = query.getCursor(view.state)
 
-		if (!cursor.next() || !newQuery.search) return
+		if (!newQuery.search) {
+			setMatches(undefined)
+			return
+		}
+		if (!cursor.next()) return
 
 		// @ts-ignore - Value does not seam to be defined in the type but are in the actual cursor object
 		const from = cursor.value.from ?? 0
@@ -101,13 +134,28 @@ export const SearchReplace: FC<SearchReplaceProps> = ({ view }) => {
 		view.dispatch({
 			effects: EditorView.scrollIntoView(from, { y: 'center' })
 		})
+
+		setMatches(getSearchMatches(query, view))
 	}
 
 	const handleKeyDown = (ev: React.KeyboardEvent<HTMLInputElement>) => {
 		// Since the panel is out of the scope of the editor we check if the command is in the scope of the serach panel keybindings
 		if (runScopeHandlers(view, ev.nativeEvent, 'search-panel')) {
 			ev.preventDefault()
+			const query = getSearchQuery(view.state)
+			setMatches(getSearchMatches(query, view))
 		}
+	}
+
+	const handleActionMethods = (
+		method: (target: EditorView) => boolean,
+		view: EditorView
+	) => {
+		method(view)
+
+		// Since all of the above method happens outside of a serachQuer we have to check for matches after running a method
+		const query = getSearchQuery(view.state)
+		setMatches(getSearchMatches(query, view))
 	}
 
 	return (
@@ -154,17 +202,28 @@ export const SearchReplace: FC<SearchReplaceProps> = ({ view }) => {
 						<Regex size={16} />
 					</Button>
 				</InputField>
-				<ActionField>
-					<Button name="findPrevious" onClick={() => findPrevious(view)}>
-						<ArrowUp size={16} />
-					</Button>
-					<Button name="findNext" onClick={() => findNext(view)}>
-						<ArrowDown size={16} />
-					</Button>
-					<Button name="close" onClick={() => closeSearchPanel(view)}>
-						<X size={16} />
-					</Button>
-				</ActionField>
+				<div className="flex justify-between gap-4 ml-2">
+					{matches && (
+						<Text className="text-sm my-auto w-fit">{`${matches.current} of ${matches.count}`}</Text>
+					)}
+					<ActionField>
+						<Button
+							name="findPrevious"
+							onClick={() => handleActionMethods(findPrevious, view)}
+						>
+							<ArrowUp size={16} />
+						</Button>
+						<Button
+							name="findNext"
+							onClick={() => handleActionMethods(findNext, view)}
+						>
+							<ArrowDown size={16} />
+						</Button>
+						<Button name="close" onClick={() => closeSearchPanel(view)}>
+							<X size={16} />
+						</Button>
+					</ActionField>
+				</div>
 			</div>
 			<div className="grid grid-cols-3">
 				<InputField>
@@ -180,10 +239,16 @@ export const SearchReplace: FC<SearchReplaceProps> = ({ view }) => {
 					/>
 				</InputField>
 				<ActionField>
-					<Button name="replace" onClick={() => replaceNext(view)}>
+					<Button
+						name="replace"
+						onClick={() => handleActionMethods(replaceNext, view)}
+					>
 						<Replace size={16} />
 					</Button>
-					<Button name="replaceAll" onClick={() => replaceAll(view)}>
+					<Button
+						name="replaceAll"
+						onClick={() => handleActionMethods(replaceAll, view)}
+					>
 						<ReplaceAll size={16} />
 					</Button>
 				</ActionField>
