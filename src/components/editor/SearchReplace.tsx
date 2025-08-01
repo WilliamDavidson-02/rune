@@ -12,7 +12,6 @@ import {
 import { EditorSelection } from "@codemirror/state"
 import { EditorView, runScopeHandlers } from "@codemirror/view"
 import { HoverCardTrigger } from "@radix-ui/react-hover-card"
-import { Toggle } from "@radix-ui/react-toggle"
 import {
 	ArrowDown,
 	ArrowUp,
@@ -28,6 +27,7 @@ import { Button } from "@components/core/Button"
 import { HoverCard, HoverCardContent } from "@components/core/HoverCard"
 import { Input } from "@components/core/Input"
 import { Text } from "@components/core/Text"
+import { ToggleButton } from "@components/ui/ToggleButton"
 
 export type SearchReplaceProps = {
 	view: EditorView
@@ -56,7 +56,7 @@ const defaultQuery: Query = {
 
 const InputField: FC<React.ComponentPropsWithRef<"div">> = ({ children }) => {
 	return (
-		<div className="col-span-2 flex gap-2 self-center bg-white px-2 rounded-sm">
+		<div className="col-span-2 flex gap-2 items-center bg-white px-2 rounded-sm">
 			{children}
 		</div>
 	)
@@ -74,8 +74,6 @@ export const SearchReplace: FC<SearchReplaceProps> = ({ view }) => {
 		// Editor state still has the prev query when closed there for we load that query when we open the serach component
 		const editorQuery = getSearchQuery(view.state)
 		const initalQuery = { ...query }
-
-		console.log({ editorQuery, initalQuery })
 
 		for (const [key, value] of Object.entries(editorQuery)) {
 			const correctKey = key as keyof typeof initalQuery
@@ -191,18 +189,18 @@ export const SearchReplace: FC<SearchReplaceProps> = ({ view }) => {
 					/>
 					<HoverCard>
 						<HoverCardTrigger asChild>
-							<Toggle aria-label="Toggle case sensitive" asChild>
-								<Button
-									onClick={() =>
-										handleSearchQuery(
-											{ ...query, caseSensitive: !query.caseSensitive },
-											view
-										)
-									}
-								>
-									<CaseSensitive size={16} />
-								</Button>
-							</Toggle>
+							<ToggleButton
+								aria-label="Toggle case sensitive"
+								size={20}
+								onClick={() =>
+									handleSearchQuery(
+										{ ...query, caseSensitive: !query.caseSensitive },
+										view
+									)
+								}
+							>
+								<CaseSensitive size={16} />
+							</ToggleButton>
 						</HoverCardTrigger>
 						<HoverCardContent>
 							<Text>Case sensitive</Text>
@@ -210,18 +208,18 @@ export const SearchReplace: FC<SearchReplaceProps> = ({ view }) => {
 					</HoverCard>
 					<HoverCard>
 						<HoverCardTrigger asChild>
-							<Toggle aria-label="Toggle whole word" asChild>
-								<Button
-									onClick={() =>
-										handleSearchQuery(
-											{ ...query, wholeWord: !query.wholeWord },
-											view
-										)
-									}
-								>
-									<WholeWord size={16} />
-								</Button>
-							</Toggle>
+							<ToggleButton
+								aria-label="Toggle whole word"
+								size={20}
+								onClick={() =>
+									handleSearchQuery(
+										{ ...query, wholeWord: !query.wholeWord },
+										view
+									)
+								}
+							>
+								<WholeWord size={16} />
+							</ToggleButton>
 						</HoverCardTrigger>
 						<HoverCardContent>
 							<Text>Whole word</Text>
@@ -229,15 +227,15 @@ export const SearchReplace: FC<SearchReplaceProps> = ({ view }) => {
 					</HoverCard>
 					<HoverCard>
 						<HoverCardTrigger asChild>
-							<Toggle aria-label="Toggle regexp" asChild>
-								<Button
-									onClick={() =>
-										handleSearchQuery({ ...query, regexp: !query.regexp }, view)
-									}
-								>
-									<Regex size={16} />
-								</Button>
-							</Toggle>
+							<ToggleButton
+								aria-label="Toggle regexp"
+								size={20}
+								onClick={() =>
+									handleSearchQuery({ ...query, regexp: !query.regexp }, view)
+								}
+							>
+								<Regex size={16} />
+							</ToggleButton>
 						</HoverCardTrigger>
 						<HoverCardContent>
 							<Text>Regexp</Text>
