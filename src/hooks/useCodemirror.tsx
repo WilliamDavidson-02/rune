@@ -15,6 +15,7 @@ import { drawSelection, EditorView, keymap } from "@codemirror/view"
 
 import { SearchReplace } from "@components/editor/SearchReplace"
 import { baseTheme } from "@components/editor/themes/baseTheme"
+import { keymaps } from "@lib/editor/commands"
 import { createComponentPanel } from "@lib/panel"
 
 export const useCodeMirror = <T extends Element>() => {
@@ -40,6 +41,7 @@ export const useCodeMirror = <T extends Element>() => {
 					...historyKeymap,
 					...closeBracketsKeymap,
 					...searchKeymap,
+					...keymaps,
 					indentWithTab
 				]),
 				history(),
