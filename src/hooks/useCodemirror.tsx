@@ -1,6 +1,11 @@
 import { useEffect, useRef } from "react"
 import { closeBrackets, closeBracketsKeymap } from "@codemirror/autocomplete"
-import { defaultKeymap, history, historyKeymap } from "@codemirror/commands"
+import {
+	defaultKeymap,
+	history,
+	historyKeymap,
+	indentWithTab
+} from "@codemirror/commands"
 import { markdown, markdownLanguage } from "@codemirror/lang-markdown"
 import { bracketMatching } from "@codemirror/language"
 import { languages } from "@codemirror/language-data"
@@ -34,7 +39,8 @@ export const useCodeMirror = <T extends Element>() => {
 					...defaultKeymap,
 					...historyKeymap,
 					...closeBracketsKeymap,
-					...searchKeymap
+					...searchKeymap,
+					indentWithTab
 				]),
 				history(),
 				markdown({
