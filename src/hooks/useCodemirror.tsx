@@ -1,21 +1,16 @@
 import { useEffect, useRef } from "react"
-import { closeBrackets, closeBracketsKeymap } from "@codemirror/autocomplete"
-import {
-	defaultKeymap,
-	history,
-	historyKeymap,
-	indentWithTab
-} from "@codemirror/commands"
+import { closeBrackets } from "@codemirror/autocomplete"
+import { history } from "@codemirror/commands"
 import { markdown, markdownLanguage } from "@codemirror/lang-markdown"
 import { bracketMatching } from "@codemirror/language"
 import { languages } from "@codemirror/language-data"
-import { search, searchKeymap } from "@codemirror/search"
+import { search } from "@codemirror/search"
 import { EditorState } from "@codemirror/state"
 import { drawSelection, EditorView, keymap } from "@codemirror/view"
 
 import { SearchReplace } from "@components/editor/SearchReplace"
 import { baseTheme } from "@components/editor/themes/baseTheme"
-import { keymaps } from "@lib/editor/commands"
+import { defaultKeymap } from "@lib/editor/commands"
 import { createComponentPanel } from "@lib/panel"
 
 export const useCodeMirror = <T extends Element>() => {
@@ -36,14 +31,7 @@ export const useCodeMirror = <T extends Element>() => {
 			doc: "",
 			extensions: [
 				baseTheme,
-				keymap.of([
-					...defaultKeymap,
-					...historyKeymap,
-					...closeBracketsKeymap,
-					...searchKeymap,
-					...keymaps,
-					indentWithTab
-				]),
+				keymap.of(defaultKeymap),
 				history(),
 				markdown({
 					base: markdownLanguage,
