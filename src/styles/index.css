@@ -2,6 +2,9 @@
 @import "./jetbrains-mono.css";
 @import "./codemirror.css";
 
+@import "./dark.css";
+@import "./light.css";
+
 * {
 	font-family: "JetBrains Mono", monospace;
 }
