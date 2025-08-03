@@ -10,6 +10,7 @@ import { drawSelection, EditorView, keymap } from "@codemirror/view"
 
 import { SearchReplace } from "@components/editor/SearchReplace"
 import { baseTheme } from "@components/editor/themes/baseTheme"
+import { runeDark, runeLight } from "@components/editor/themes/runeDefault"
 import { defaultKeymap } from "@lib/editor/commands"
 import { createComponentPanel } from "@lib/panel"
 
@@ -31,6 +32,8 @@ export const useCodeMirror = <T extends Element>() => {
 			doc: "",
 			extensions: [
 				baseTheme,
+				// runeDark,
+				runeLight,
 				keymap.of(defaultKeymap),
 				history(),
 				markdown({

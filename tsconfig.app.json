@@ -29,8 +29,7 @@
 			"@/*": [""],
 			"@components/*": ["./components/*"],
 			"@hooks/*": ["./hooks/*"],
-			"@lib/*": ["./lib/*"],
-			"@stores/*": ["./stores/*"]
+			"@lib/*": ["./lib/*"]
 		}
 	},
 	"include": ["src"]
