@@ -5,6 +5,8 @@
 @import "./dark.css";
 @import "./light.css";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 * {
 	font-family: "JetBrains Mono", monospace;
 }

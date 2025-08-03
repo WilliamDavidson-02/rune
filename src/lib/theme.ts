@@ -7,7 +7,7 @@ import { type Extension } from "@codemirror/state"
 import { EditorView } from "@codemirror/view"
 import type { StyleSpec } from "types/style"
 
-type Theme = "light" | "dark"
+export type Theme = "light" | "dark"
 
 export type Settings = {
 	background?: string

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { closeBrackets } from "@codemirror/autocomplete"
 import { history } from "@codemirror/commands"
 import { markdown, markdownLanguage } from "@codemirror/lang-markdown"
@@ -13,9 +13,12 @@ import { baseTheme } from "@components/editor/themes/baseTheme"
 import { runeDark, runeLight } from "@components/editor/themes/runeDefault"
 import { defaultKeymap } from "@lib/editor/commands"
 import { createComponentPanel } from "@lib/panel"
+import { useThemeStore } from "@stores/theme"
 
 export const useCodeMirror = <T extends Element>() => {
 	const editorRef = useRef<T | null>(null)
+	const [view, setView] = useState<EditorView>()
+	const { theme, themeCompartment } = useThemeStore()
 
 	const setPlaceholder = async (view: EditorView) => {
 		const res = await fetch("./github_flavored_markdown_examples.txt")
@@ -32,8 +35,7 @@ export const useCodeMirror = <T extends Element>() => {
 			doc: "",
 			extensions: [
 				baseTheme,
-				// runeDark,
-				runeLight,
+				themeCompartment.of(theme === "dark" ? runeDark : runeLight),
 				keymap.of(defaultKeymap),
 				history(),
 				markdown({
@@ -55,13 +57,24 @@ export const useCodeMirror = <T extends Element>() => {
 			]
 		})
 
-		const view = new EditorView({
+		const newView = new EditorView({
 			state,
 			parent: editorRef.current
 		})
-		view.focus()
-		setPlaceholder(view)
+		newView.focus()
+		setPlaceholder(newView)
+		setView(newView)
 	}, [editorRef])
+
+	useEffect(() => {
+		if (!view) return
+
+		view.dispatch({
+			effects: themeCompartment.reconfigure(
+				theme === "dark" ? runeDark : runeLight
+			)
+		})
+	}, [theme])
 
 	return { editorRef }
 }
