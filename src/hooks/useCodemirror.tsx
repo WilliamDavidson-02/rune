@@ -12,6 +12,7 @@ import { SearchReplace } from "@components/editor/SearchReplace"
 import { baseTheme } from "@components/editor/themes/baseTheme"
 import { runeDark, runeLight } from "@components/editor/themes/runeDefault"
 import { defaultKeymap } from "@lib/editor/commands"
+import { disableSpellCheck, domSpellCheck } from "@lib/editor/spellcheck"
 import { createComponentPanel } from "@lib/panel"
 import { useThemeStore } from "@stores/theme"
 
@@ -53,7 +54,9 @@ export const useCodeMirror = <T extends Element>() => {
 							component: <SearchReplace view={view} />,
 							options: { top: true }
 						})
-				})
+				}),
+				domSpellCheck,
+				disableSpellCheck
 			]
 		})
 
