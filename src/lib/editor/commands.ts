@@ -6,6 +6,7 @@ import {
 	insertBlankLine,
 	selectParentSyntax
 } from "@codemirror/commands"
+import { markdownKeymap } from "@codemirror/lang-markdown"
 import { searchKeymap } from "@codemirror/search"
 import { EditorSelection } from "@codemirror/state"
 import { EditorView, type KeyBinding } from "@codemirror/view"
@@ -62,5 +63,6 @@ export const defaultKeymap = [
 	...historyKeymap,
 	...closeBracketsKeymap,
 	...searchKeymap,
+	...markdownKeymap,
 	indentWithTab
 ]
