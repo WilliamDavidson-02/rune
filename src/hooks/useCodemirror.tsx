@@ -1,9 +1,7 @@
 import { useEffect, useRef, useState } from "react"
-import { closeBrackets } from "@codemirror/autocomplete"
+import { autocompletion, closeBrackets } from "@codemirror/autocomplete"
 import { history } from "@codemirror/commands"
-import { markdown, markdownLanguage } from "@codemirror/lang-markdown"
 import { bracketMatching } from "@codemirror/language"
-import { languages } from "@codemirror/language-data"
 import { search } from "@codemirror/search"
 import { EditorState } from "@codemirror/state"
 import { drawSelection, EditorView, keymap } from "@codemirror/view"
@@ -12,6 +10,7 @@ import { SearchReplace } from "@components/editor/SearchReplace"
 import { baseTheme } from "@components/editor/themes/baseTheme"
 import { runeDark, runeLight } from "@components/editor/themes/runeDefault"
 import { defaultKeymap } from "@lib/editor/commands"
+import { languageSupport } from "@lib/editor/language"
 import { disableSpellCheck, domSpellCheck } from "@lib/editor/spellcheck"
 import { createComponentPanel } from "@lib/panel"
 import { useThemeStore } from "@stores/theme"
@@ -38,12 +37,8 @@ export const useCodeMirror = <T extends Element>() => {
 				baseTheme,
 				themeCompartment.of(theme === "dark" ? runeDark : runeLight),
 				keymap.of(defaultKeymap),
+				...languageSupport,
 				history(),
-				markdown({
-					base: markdownLanguage,
-					codeLanguages: languages,
-					addKeymap: true
-				}),
 				bracketMatching(),
 				closeBrackets(),
 				EditorState.allowMultipleSelections.of(true),
@@ -56,7 +51,8 @@ export const useCodeMirror = <T extends Element>() => {
 						})
 				}),
 				domSpellCheck,
-				disableSpellCheck
+				disableSpellCheck,
+				autocompletion()
 			]
 		})
 
