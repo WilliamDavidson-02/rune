@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { autocompletion, closeBrackets } from "@codemirror/autocomplete"
+import { closeBrackets } from "@codemirror/autocomplete"
 import { history } from "@codemirror/commands"
 import { bracketMatching } from "@codemirror/language"
 import { search } from "@codemirror/search"
@@ -10,6 +10,8 @@ import { SearchReplace } from "@components/editor/SearchReplace"
 import { baseTheme } from "@components/editor/themes/baseTheme"
 import { runeDark, runeLight } from "@components/editor/themes/runeDefault"
 import { defaultKeymap } from "@lib/editor/commands"
+import { completions } from "@lib/editor/completions"
+import { getEmojis } from "@lib/editor/emojis"
 import { languageSupport } from "@lib/editor/language"
 import { disableSpellCheck, domSpellCheck } from "@lib/editor/spellcheck"
 import { createComponentPanel } from "@lib/panel"
@@ -30,6 +32,7 @@ export const useCodeMirror = <T extends Element>() => {
 	useEffect(() => {
 		const isEditorCreated = editorRef.current?.innerHTML !== ""
 		if (!editorRef.current || isEditorCreated) return
+		getEmojis() // We fetch github emotjies to use in the emojies completion extension
 
 		const state = EditorState.create({
 			doc: "",
@@ -37,7 +40,8 @@ export const useCodeMirror = <T extends Element>() => {
 				baseTheme,
 				themeCompartment.of(theme === "dark" ? runeDark : runeLight),
 				keymap.of(defaultKeymap),
-				...languageSupport,
+				languageSupport,
+				completions,
 				history(),
 				bracketMatching(),
 				closeBrackets(),
@@ -51,8 +55,7 @@ export const useCodeMirror = <T extends Element>() => {
 						})
 				}),
 				domSpellCheck,
-				disableSpellCheck,
-				autocompletion()
+				disableSpellCheck
 			]
 		})
 
@@ -61,6 +64,7 @@ export const useCodeMirror = <T extends Element>() => {
 			parent: editorRef.current
 		})
 		newView.focus()
+
 		setPlaceholder(newView)
 		setView(newView)
 	}, [editorRef])
