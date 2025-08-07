@@ -1,5 +1,7 @@
 import type { Completion, CompletionContext } from "@codemirror/autocomplete"
 
+import { getTooltipIconCss } from "./tooltip"
+
 const url = import.meta.env.VITE_GITHUB_BASE_URL
 const dev = import.meta.env.VITE_DEV
 
@@ -24,14 +26,7 @@ const addEmojiCssClasses = (emojis: GithubEmojis) => {
 
 	Object.entries(emojis).forEach(([key, value]) => {
 		const className = `.cm-completionIcon-emoji-${cleanEmojiLabel(key)}`
-		css += `
-			${className} {
-				background-image: url(${value});
-				background-size: contain;
-				background-repeat: no-repeat;
-                height: 0.8em;
-			}
-		`
+		css += getTooltipIconCss(className, value)
 	})
 
 	style.textContent = css
