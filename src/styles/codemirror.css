@@ -3,7 +3,5 @@
 }
 
 .cm-completionIcon {
-    opacity: 1 !important;
-    width: 1rem !important;
-    height: 1rem !important;
+    @apply h-4 w-4 opacity-100;
 }

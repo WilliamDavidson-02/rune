@@ -17,6 +17,8 @@ export type Settings = {
 	gutterBackground?: string
 	gutterForeground?: string
 	gutterBorder?: string
+	inlineCodeBackground?: string
+	inlineCodeForegorund?: string
 }
 
 export type CreateThemeOptions = {
@@ -68,6 +70,23 @@ export const createTheme = ({
 			backgroundColor: settings.selectionMatch
 		}
 	}
+
+	if (settings.inlineCodeBackground) {
+		const target = ".cm-inline-code, .cm-inline-code .cm-code-mark span"
+		themeOptions[target] = {
+			...themeOptions[target],
+			background: settings.inlineCodeBackground + "!important"
+		}
+	}
+
+	if (settings.inlineCodeForegorund) {
+		const target = ".cm-inline-code, .cm-inline-code .cm-code-mark span"
+		themeOptions[target] = {
+			...themeOptions[target],
+			color: settings.inlineCodeForegorund + "!important"
+		}
+	}
+
 	const themeExtension = EditorView.theme(themeOptions, {
 		dark: theme === "dark"
 	})
