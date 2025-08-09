@@ -10,7 +10,9 @@ export const defaultSettingsRuneLight: CreateThemeOptions["settings"] = {
 	gutterBackground: "var(--color-light-base-900)",
 	gutterForeground: "var(--color-light-yellow-500)",
 	inlineCodeForegorund: "var(--color-light-yellow-200)",
-	inlineCodeBackground: "var(--color-light-yellow-400)"
+	inlineCodeBackground: "var(--color-light-yellow-400)",
+	linkMarkForeground: "var(--color-light-blue-300)",
+	linkMarkDecoration: "underline"
 }
 
 export const runeLightStyle: CreateThemeOptions["styles"] = [
@@ -54,7 +56,7 @@ export const runeLightStyle: CreateThemeOptions["styles"] = [
 		color: "var(--colo-light-base-000)"
 	},
 	{
-		tag: t.link,
+		tag: t.url,
 		color: "var(--color-light-blue-300)",
 		textDecoration: "underline"
 	}
@@ -78,7 +80,9 @@ export const defaultSettingsRuneDark: CreateThemeOptions["settings"] = {
 	gutterBackground: "var(--color-dark-base-900)",
 	gutterForeground: "var(--color-dark-yellow-500)",
 	inlineCodeForegorund: "var(--color-dark-yellow-200)",
-	inlineCodeBackground: "var(--color-dark-yellow-400)"
+	inlineCodeBackground: "var(--color-dark-yellow-400)",
+	linkMarkForeground: "var(--color-dark-blue-300)",
+	linkMarkDecoration: "underline"
 }
 
 export const runeDarkStyle: CreateThemeOptions["styles"] = [
@@ -122,7 +126,7 @@ export const runeDarkStyle: CreateThemeOptions["styles"] = [
 		color: "var(--colo-dark-base-000)"
 	},
 	{
-		tag: t.link,
+		tag: t.url,
 		color: "var(--color-dark-blue-300)",
 		textDecoration: "underline"
 	}

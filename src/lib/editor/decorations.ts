@@ -4,7 +4,7 @@ import { toKebab } from "@lib/textTransformation"
 
 import { treeIterator } from "./viewPlugin"
 
-const allowedNodeNames = ["InlineCode", "CodeMark"]
+const allowedNodeNames = ["InlineCode", "CodeMark", "LinkMark"]
 
 export const setNodeClassName = treeIterator(({ node, builder }) => {
 	if (allowedNodeNames.includes(node.name)) {

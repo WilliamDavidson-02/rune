@@ -19,6 +19,8 @@ export type Settings = {
 	gutterBorder?: string
 	inlineCodeBackground?: string
 	inlineCodeForegorund?: string
+	linkMarkForeground?: string
+	linkMarkDecoration?: string
 }
 
 export type CreateThemeOptions = {
@@ -34,7 +36,8 @@ export const createTheme = ({
 }: CreateThemeOptions): Extension => {
 	const themeOptions: Record<string, StyleSpec> = {
 		".cm-gutter": {},
-		".cm-gutters": {}
+		".cm-gutters": {},
+		".cm-link-mark span": {}
 	}
 	const baseStyle: StyleSpec = {}
 
@@ -85,6 +88,16 @@ export const createTheme = ({
 			...themeOptions[target],
 			color: settings.inlineCodeForegorund + "!important"
 		}
+	}
+
+	if (settings.linkMarkForeground) {
+		themeOptions[".cm-link-mark span"].color =
+			settings.linkMarkForeground + "!important"
+	}
+
+	if (settings.linkMarkDecoration) {
+		themeOptions[".cm-link-mark span"].textDecoration =
+			settings.linkMarkDecoration
 	}
 
 	const themeExtension = EditorView.theme(themeOptions, {
