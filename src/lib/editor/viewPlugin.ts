@@ -10,7 +10,7 @@ import {
 
 // Codemirror does not export the type definition of SyntaxNodeRef since it is a type from @lezer/common
 // There fore we infer the type from the syntaxTree function that codemirror exports to get the type of a node
-type SyntaxNodeRef = Parameters<
+export type SyntaxNodeRef = Parameters<
 	Parameters<ReturnType<typeof syntaxTree>["iterate"]>[0]["enter"]
 >[0]
 

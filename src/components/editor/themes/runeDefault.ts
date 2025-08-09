@@ -12,7 +12,8 @@ export const defaultSettingsRuneLight: CreateThemeOptions["settings"] = {
 	inlineCodeForegorund: "var(--color-light-yellow-200)",
 	inlineCodeBackground: "var(--color-light-yellow-400)",
 	linkMarkForeground: "var(--color-light-blue-300)",
-	linkMarkDecoration: "underline"
+	linkMarkDecoration: "underline",
+	taskMarkerChecked: "var(--color-dark-green-300)"
 }
 
 export const runeLightStyle: CreateThemeOptions["styles"] = [
@@ -82,7 +83,8 @@ export const defaultSettingsRuneDark: CreateThemeOptions["settings"] = {
 	inlineCodeForegorund: "var(--color-dark-yellow-200)",
 	inlineCodeBackground: "var(--color-dark-yellow-400)",
 	linkMarkForeground: "var(--color-dark-blue-300)",
-	linkMarkDecoration: "underline"
+	linkMarkDecoration: "underline",
+	taskMarkerChecked: "var(--color-dark-green-300)"
 }
 
 export const runeDarkStyle: CreateThemeOptions["styles"] = [

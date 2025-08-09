@@ -11,7 +11,7 @@ import { baseTheme } from "@components/editor/themes/baseTheme"
 import { runeDark, runeLight } from "@components/editor/themes/runeDefault"
 import { defaultKeymap } from "@lib/editor/commands"
 import { completions } from "@lib/editor/completions"
-import { setNodeClassName } from "@lib/editor/decorations"
+import { setNodeAttrbutes } from "@lib/editor/decorations"
 import { getEmojis } from "@lib/editor/emojis"
 import { languageSupport } from "@lib/editor/language"
 import { disableSpellCheck, domSpellCheck } from "@lib/editor/spellcheck"
@@ -57,7 +57,7 @@ export const useCodeMirror = <T extends Element>() => {
 				}),
 				domSpellCheck,
 				disableSpellCheck,
-				setNodeClassName
+				setNodeAttrbutes
 			]
 		})
 

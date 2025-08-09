@@ -21,6 +21,7 @@ export type Settings = {
 	inlineCodeForegorund?: string
 	linkMarkForeground?: string
 	linkMarkDecoration?: string
+	taskMarkerChecked?: string
 }
 
 export type CreateThemeOptions = {
@@ -98,6 +99,12 @@ export const createTheme = ({
 	if (settings.linkMarkDecoration) {
 		themeOptions[".cm-link-mark span"].textDecoration =
 			settings.linkMarkDecoration
+	}
+
+	if (settings.taskMarkerChecked) {
+		themeOptions['.cm-task-marker[data-checked="true"] span'] = {
+			color: settings.taskMarkerChecked + "!important"
+		}
 	}
 
 	const themeExtension = EditorView.theme(themeOptions, {
