@@ -6,7 +6,7 @@ import { search } from "@codemirror/search"
 import { EditorState } from "@codemirror/state"
 import { drawSelection, EditorView, keymap } from "@codemirror/view"
 
-import { SearchReplace } from "@components/editor/SearchReplace"
+import { SearchReplace } from "@components/editor/serachReplace/SearchReplace"
 import { baseTheme } from "@components/editor/themes/baseTheme"
 import { runeDark, runeLight } from "@components/editor/themes/runeDefault"
 import { defaultKeymap } from "@lib/editor/commands"
