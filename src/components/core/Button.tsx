@@ -20,7 +20,7 @@ export const Button: FC<ButtonProps> = ({
 			style={size ? { width: size, height: size } : {}}
 			className={cn(
 				className,
-				"cursor-pointer flex justify-center items-center rounded-sm"
+				"cursor-pointer flex justify-center items-center rounded-sm outline-light-base-200 dark:outline-dark-base-200 focus:outline-solid"
 			)}
 			ref={ref}
 			type={type ?? "button"}

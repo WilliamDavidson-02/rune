@@ -12,7 +12,13 @@ export const ToggleButton: FC<ToggleButtonProps> = (props) => {
 
 	return (
 		<Toggle aria-label={ariaLabel} asChild>
-			<Button className={cn(className, "aria-pressed:bg-zinc-100")} {...rest}>
+			<Button
+				className={cn(
+					className,
+					"aria-pressed:bg-light-base-800 dark:aria-pressed:bg-dark-base-800 aria-pressed:ring-light-base-600 dark:aria-pressed:ring-dark-base-600"
+				)}
+				{...rest}
+			>
 				{children}
 			</Button>
 		</Toggle>

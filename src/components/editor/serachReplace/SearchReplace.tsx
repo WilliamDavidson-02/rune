@@ -136,7 +136,7 @@ export const SearchReplace: FC<SearchReplaceProps> = ({ view }) => {
 
 	return (
 		<div
-			className="flex flex-col gap-1 p-2 relative"
+			className="flex flex-col gap-1 p-2 relative bg-light-base-800 dark:bg-dark-base-800 border-light-base-700 dark:border-dark-base-700 border rounded-br-sm"
 			onKeyDown={(ev) => handleKeyDown(ev, view)}
 		>
 			<Search

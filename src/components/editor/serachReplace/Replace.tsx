@@ -8,7 +8,7 @@ import { HoverCard, HoverCardContent } from "@components/core/HoverCard"
 import { Input } from "@components/core/Input"
 import { Text } from "@components/core/Text"
 
-import { ActionField, InputField } from "./Fields"
+import { ActionField, FieldWrapper, InputField } from "./Fields"
 import type { ActionMethod, Query } from "./SearchReplace"
 
 type ReplaceProps = {
@@ -21,7 +21,7 @@ export const Replace: FC<ReplaceProps> = (props) => {
 	const { handleActionMethods, handleSearchQuery, query } = props
 
 	return (
-		<div className="grid grid-cols-3">
+		<FieldWrapper>
 			<InputField>
 				<Input
 					name="replace"
@@ -31,13 +31,13 @@ export const Replace: FC<ReplaceProps> = (props) => {
 					onChange={(ev) =>
 						handleSearchQuery({ ...query, replace: ev.target.value })
 					}
-					className="flex-grow text-sm p-0"
+					className="flex-grow text-sm p-0 outline-none"
 				/>
 			</InputField>
 			<ActionField>
 				<HoverCard>
 					<HoverCardTrigger asChild>
-						<Button onClick={() => handleActionMethods(replaceNext)}>
+						<Button onClick={() => handleActionMethods(replaceNext)} size={20}>
 							<ReplaceIcon size={16} />
 						</Button>
 					</HoverCardTrigger>
@@ -48,7 +48,7 @@ export const Replace: FC<ReplaceProps> = (props) => {
 
 				<HoverCard>
 					<HoverCardTrigger asChild>
-						<Button onClick={() => handleActionMethods(replaceAll)}>
+						<Button onClick={() => handleActionMethods(replaceAll)} size={20}>
 							<ReplaceAll size={16} />
 						</Button>
 					</HoverCardTrigger>
@@ -57,6 +57,6 @@ export const Replace: FC<ReplaceProps> = (props) => {
 					</HoverCardContent>
 				</HoverCard>
 			</ActionField>
-		</div>
+		</FieldWrapper>
 	)
 }

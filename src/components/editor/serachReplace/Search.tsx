@@ -17,7 +17,7 @@ import { Input } from "@components/core/Input"
 import { Text } from "@components/core/Text"
 import { ToggleButton } from "@components/ui/ToggleButton"
 
-import { ActionField, InputField } from "./Fields"
+import { ActionField, FieldWrapper, InputField } from "./Fields"
 import type { ActionMethod, Matches, Query } from "./SearchReplace"
 
 type SearchProps = {
@@ -31,7 +31,7 @@ type SearchProps = {
 export const Search: FC<SearchProps> = (props) => {
 	const { query, handleSearchQuery, handleActionMethods, matches, view } = props
 	return (
-		<div className="grid grid-cols-3">
+		<FieldWrapper>
 			<InputField>
 				<Input
 					name="search"
@@ -43,7 +43,7 @@ export const Search: FC<SearchProps> = (props) => {
 					onChange={(ev) =>
 						handleSearchQuery({ ...query, search: ev.target.value })
 					}
-					className="flex-grow text-sm p-0"
+					className="flex-grow text-sm p-0 outline-none"
 				/>
 				<HoverCard>
 					<HoverCardTrigger asChild>
@@ -104,7 +104,10 @@ export const Search: FC<SearchProps> = (props) => {
 				<ActionField>
 					<HoverCard>
 						<HoverCardTrigger asChild>
-							<Button onClick={() => handleActionMethods(findPrevious, view)}>
+							<Button
+								onClick={() => handleActionMethods(findPrevious)}
+								size={20}
+							>
 								<ArrowUp size={16} />
 							</Button>
 						</HoverCardTrigger>
@@ -115,7 +118,7 @@ export const Search: FC<SearchProps> = (props) => {
 
 					<HoverCard>
 						<HoverCardTrigger asChild>
-							<Button onClick={() => handleActionMethods(findNext, view)}>
+							<Button onClick={() => handleActionMethods(findNext)} size={20}>
 								<ArrowDown size={16} />
 							</Button>
 						</HoverCardTrigger>
@@ -126,7 +129,7 @@ export const Search: FC<SearchProps> = (props) => {
 
 					<HoverCard>
 						<HoverCardTrigger asChild>
-							<Button onClick={() => closeSearchPanel(view)}>
+							<Button onClick={() => closeSearchPanel(view)} size={20}>
 								<X size={16} />
 							</Button>
 						</HoverCardTrigger>
@@ -136,6 +139,6 @@ export const Search: FC<SearchProps> = (props) => {
 					</HoverCard>
 				</ActionField>
 			</div>
-		</div>
+		</FieldWrapper>
 	)
 }

@@ -29,10 +29,10 @@ export const HoverCardContent: FC<HoverCardContentProps> = ({
 }) => {
 	return (
 		<Content {...rest}>
-			<div className="py-1 px-2 bg-white border border-black text-xs">
+			<div className="py-1 px-2 bg-light-base-800 dark:bg-dark-base-800 border border-light-base-700 dark:border-dark-base-700 text-xs rounded-sm shadow-lg shadow-light-base-900 dark:shadow-dark-base-900">
 				{children}
 			</div>
-			<HoverCardArrow />
+			<HoverCardArrow className="fill-light-base-700 dark:fill-dark-base-700" />
 		</Content>
 	)
 }
