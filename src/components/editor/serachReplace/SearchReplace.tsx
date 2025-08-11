@@ -2,6 +2,11 @@ import { useEffect, useState, type FC } from "react"
 import { getSearchQuery, SearchQuery, setSearchQuery } from "@codemirror/search"
 import { EditorSelection } from "@codemirror/state"
 import { EditorView, runScopeHandlers } from "@codemirror/view"
+import { HoverCard, HoverCardTrigger } from "@radix-ui/react-hover-card"
+import { ChevronDown, ChevronUp } from "lucide-react"
+
+import { Button } from "@components/core/Button"
+import { cn } from "@lib/cn"
 
 import { Replace } from "./Replace"
 import { Search } from "./Search"
@@ -38,6 +43,7 @@ const defaultQuery: Query = {
 export const SearchReplace: FC<SearchReplaceProps> = ({ view }) => {
 	const [query, setQuery] = useState<Query>(defaultQuery)
 	const [matches, setMatches] = useState<Matches>()
+	const [showReplace, setShowReplace] = useState(false)
 
 	useEffect(() => {
 		// Editor state still has the prev query when closed there for we load that query when we open the serach component
@@ -136,9 +142,22 @@ export const SearchReplace: FC<SearchReplaceProps> = ({ view }) => {
 
 	return (
 		<div
-			className="flex flex-col gap-1 p-2 relative bg-light-base-800 dark:bg-dark-base-800 border-light-base-700 dark:border-dark-base-700 border rounded-br-sm"
+			className={cn(
+				"grid grid-flow-col gap-x-1 p-2 relative bg-light-base-800 dark:bg-dark-base-800 border-light-base-700 dark:border-dark-base-700 border rounded-bl-sm",
+				{ showReplace: "grid-rows-2" }
+			)}
 			onKeyDown={(ev) => handleKeyDown(ev, view)}
 		>
+			<HoverCard>
+				<HoverCardTrigger asChild>
+					<Button
+						onClick={() => setShowReplace((prev) => !prev)}
+						className="row-span-2 col-span-1 mr-1 px-1"
+					>
+						{showReplace ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+					</Button>
+				</HoverCardTrigger>
+			</HoverCard>
 			<Search
 				query={query}
 				matches={matches}
@@ -146,11 +165,13 @@ export const SearchReplace: FC<SearchReplaceProps> = ({ view }) => {
 				handleSearchQuery={handleSearchQuery}
 				handleActionMethods={handleActionMethods}
 			/>
-			<Replace
-				query={query}
-				handleSearchQuery={handleSearchQuery}
-				handleActionMethods={handleActionMethods}
-			/>
+			{showReplace && (
+				<Replace
+					query={query}
+					handleSearchQuery={handleSearchQuery}
+					handleActionMethods={handleActionMethods}
+				/>
+			)}
 		</div>
 	)
 }
