@@ -22,6 +22,9 @@ export type Settings = {
 	linkMarkForeground?: string
 	linkMarkDecoration?: string
 	taskMarkerChecked?: string
+	tooltipBackground?: string
+	tooltipForeground?: string
+	tooltipSelectedBackground?: string
 }
 
 export type CreateThemeOptions = {
@@ -104,6 +107,30 @@ export const createTheme = ({
 	if (settings.taskMarkerChecked) {
 		themeOptions['.cm-task-marker[data-checked="true"] span'] = {
 			color: settings.taskMarkerChecked + "!important"
+		}
+	}
+
+	if (settings.tooltipBackground) {
+		const target = ".cm-tooltip.cm-tooltip-autocomplete"
+		themeOptions[target] = {
+			...themeOptions[target],
+			background: settings.tooltipBackground
+		}
+	}
+
+	if (settings.tooltipForeground) {
+		const target = ".cm-tooltip.cm-tooltip-autocomplete"
+		themeOptions[target] = {
+			...themeOptions[target],
+			background: settings.tooltipForeground
+		}
+	}
+
+	if (settings.tooltipSelectedBackground) {
+		themeOptions[
+			'.cm-tooltip.cm-tooltip-autocomplete li[aria-selected="true"]'
+		] = {
+			background: settings.tooltipSelectedBackground
 		}
 	}
 

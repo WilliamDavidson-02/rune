@@ -3,5 +3,17 @@
 }
 
 .cm-completionIcon {
-    @apply h-4 w-4 opacity-100;
+    @apply !h-4 !w-4 !opacity-100;
+}
+
+.cm-tooltip.cm-tooltip-autocomplete {
+    @apply overflow-hidden rounded-sm;
+}
+
+.cm-tooltip.cm-tooltip-autocomplete li {
+    @apply flex items-center !px-2 !py-1;
+}
+
+.cm-tooltip.cm-tooltip-autocomplete>ul {
+    @apply scrollbar-none !max-h-[25em];
 }

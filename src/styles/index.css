@@ -8,5 +8,10 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 * {
-	font-family: "JetBrains Mono", monospace;
+    font-family: "JetBrains Mono", monospace;
+}
+
+@utility scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
