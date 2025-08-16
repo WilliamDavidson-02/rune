@@ -1,9 +1,6 @@
-import { type FC, type JSX } from "react"
-
 import { cn } from "@lib/cn"
 
-type TextElement = keyof Pick<
-	JSX.IntrinsicElements,
+type TextElement =
 	| "p"
 	| "span"
 	| "label"
@@ -19,17 +16,23 @@ type TextElement = keyof Pick<
 	| "blockquote"
 	| "abbr"
 	| "cite"
->
 
-export type Text<T extends TextElement = "p"> =
-	React.ComponentPropsWithRef<T> & {
-		as?: T
-		className?: string
-	}
+export type TextProps<T extends TextElement> = {
+	as?: T
+	className?: string
+	children?: React.ReactNode
+} & Omit<React.ComponentPropsWithoutRef<T>, "as">
 
-export const Text: FC<Text> = ({ as, className, ref, ...rest }) => {
-	const Component = as || "p"
+export const Text = <T extends TextElement = "p">({
+	as,
+	className,
+	children,
+	...rest
+}: TextProps<T>) => {
+	const Component = (as || "p") as React.ElementType
 	return (
-		<Component className={cn(className, "")} ref={ref} {...rest}></Component>
+		<Component className={cn(className, "")} {...rest}>
+			{children}
+		</Component>
 	)
 }
