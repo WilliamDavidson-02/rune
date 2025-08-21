@@ -48,8 +48,14 @@
 		"prettier": "^3.6.2",
 		"react": "^19.1.0",
 		"react-dom": "^19.1.0",
+		"rehype-highlight": "^7.0.2",
+		"rehype-stringify": "^10.0.1",
+		"remark-gfm": "^4.0.1",
+		"remark-parse": "^11.0.0",
+		"remark-rehype": "^11.1.2",
 		"tailwind-merge": "^3.3.1",
 		"tailwindcss": "^4.1.11",
+		"unified": "^11.0.5",
 		"zustand": "^5.0.7"
 	},
 	"devDependencies": {

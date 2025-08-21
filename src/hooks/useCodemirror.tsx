@@ -18,10 +18,13 @@ import { disableSpellCheck, domSpellCheck } from "@lib/editor/spellcheck"
 import { createComponentPanel } from "@lib/panel"
 import { useThemeStore } from "@stores/theme"
 
+import { useLivePreview } from "./useLivePreview"
+
 export const useCodeMirror = <T extends Element>() => {
 	const editorRef = useRef<T | null>(null)
 	const [view, setView] = useState<EditorView>()
 	const { theme, themeCompartment } = useThemeStore()
+	const { renderLivePreview } = useLivePreview()
 
 	const setPlaceholder = async (view: EditorView) => {
 		const res = await fetch("./github_flavored_markdown_examples.txt")
@@ -57,7 +60,8 @@ export const useCodeMirror = <T extends Element>() => {
 				}),
 				domSpellCheck,
 				disableSpellCheck,
-				setNodeAttrbutes
+				setNodeAttrbutes,
+				renderLivePreview
 			]
 		})
 
