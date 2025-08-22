@@ -17,3 +17,7 @@
 .cm-tooltip.cm-tooltip-autocomplete>ul {
     @apply scrollbar-none !max-h-[25em];
 }
+
+.cm-widget-container>* {
+    @apply inline;
+}

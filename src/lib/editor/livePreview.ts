@@ -1,57 +1,72 @@
-import { syntaxTree } from "@codemirror/language"
-import {
-	EditorState,
-	RangeSetBuilder,
-	StateField,
-	type SelectionRange
-} from "@codemirror/state"
-import { Decoration, EditorView } from "@codemirror/view"
-
-import { Widget } from "./widget"
+import { EditorState } from "@codemirror/state"
 
 export const WIDGET_MAP = [
+	// "CodeBlock",
+	// "FencedCode",
+	// "Blockquote",
+	// "HorizontalRule",
+	// "BulletList",
+	// "OrderedList",
+	// "ListItem",
 	"ATXHeading1",
 	"ATXHeading2",
 	"ATXHeading3",
 	"ATXHeading4",
 	"ATXHeading5",
 	"ATXHeading6",
-	// "Blockquote",
-	// "FencedCode",
-	// "IndentedCode",
-	// "CodeInfo",
-	// "CodeText",
-	// "InlineCode",
-	// "Link",
-	// "LinkMark",
-	// "URL",
-	// "Image",
-	// "ImageMark",
+	// "SetextHeading1",
+	// "SetextHeading2",
+	// "HTMLBlock",
+	// "LinkReference",
+	// "Paragraph"
+	// "CommentBlock",
+	// "ProcessingInstructionBlock",
+
+	// Inline
+	// "Escape",
+	// "Entity",
+	// "HardBreak",
 	"Emphasis",
-	// "StrongEmphasis",
-	// "ListItem",
-	// "BulletList",
-	// "OrderedList",
-	// "HorizontalRule",
-	// "Table",
-	// "TableRow",
-	// "TableHeader",
-	// "TableCell",
-	// "TaskMarker",
+	"StrongEmphasis",
 	"Strikethrough"
+	// "Link",
+	// "Image",
+	// "InlineCode",
+	// "HTMLTag",
+	// "Comment",
+	// "ProcessingInstruction",
+	// "Autolink",
+
+	// Smaller tokens
+	// "HeaderMark",
+	// "QuoteMark",
+	// "ListMark",
+	// "LinkMark",
+	// "EmphasisMark"
+	// "CodeMark",
+	// "CodeText",
+	// "CodeInfo",
+	// "LinkTitle",
+	// "LinkLabel",
+	// "URL"
 ]
 
 export const isNodeWithInRanges = (
-	ranges: readonly SelectionRange[],
+	state: EditorState,
 	from: number,
 	to: number
 ) => {
-	return ranges.some((range) => range.from <= to && range.to >= from)
-}
+	const { selection, doc } = state
 
-export const getFullLineRange = (state: EditorState, range: SelectionRange) => {
-	const fromLine = state.doc.lineAt(range.from)
-	const toLine = state.doc.lineAt(range.to)
+	return selection.ranges.some((range) => {
+		// The node should still be included in the range if the node is on the same line as the range
+		const rangeLine = doc.lineAt(range.from)
+		const nodeLine = doc.lineAt(from)
+		const onLine =
+			rangeLine.from === nodeLine.from && rangeLine.to === nodeLine.to
 
-	return { from: fromLine.from, to: toLine.to }
+		const isPartial = range.from <= to && range.to >= from
+
+		return isPartial || onLine
+	})
 }

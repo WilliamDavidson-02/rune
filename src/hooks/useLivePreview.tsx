@@ -7,14 +7,13 @@ import { Widget } from "@lib/editor/widget"
 export const useLivePreview = () => {
 	const renderLivePreview = treeIterator(({ node, view, builder }) => {
 		const { name, from, to } = node
-		const { selection, doc } = view.state
-		const content = doc.sliceString(from, to)
+		const { state } = view
+		const content = state.doc.sliceString(from, to)
+		const inRange = isNodeWithInRanges(state, from, to)
 
-		if (isNodeWithInRanges(selection.ranges, from, to)) {
-			return
-		}
+		if (inRange) return
 
-		if (content.length > 0 && WIDGET_MAP.includes(name)) {
+		if (WIDGET_MAP.includes(name)) {
 			const widget = new Widget(content)
 			builder.add(from, to, Decoration.widget({ widget }))
 		}

@@ -32,15 +32,20 @@ export const treeIterator = (onNode: Callback) =>
 			}
 
 			update(update: ViewUpdate) {
-				if (update.docChanged || update.viewportChanged)
+				const shouldUpdate =
+					update.docChanged || update.viewportChanged || update.selectionSet
+
+				if (shouldUpdate) {
 					this.decorations = this.buildDecorations(update.view)
+				}
 			}
 
 			buildDecorations(view: EditorView): DecorationSet {
 				const builder = new RangeSetBuilder<Decoration>()
+				const { state, viewport } = view
+				const tree = syntaxTree(state)
 
-				const tree = syntaxTree(view.state)
-				const { from, to } = view.viewport
+				const { from, to } = viewport
 
 				tree.iterate({
 					from,

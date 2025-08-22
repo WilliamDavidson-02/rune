@@ -11,7 +11,8 @@ export class Widget extends WidgetType {
 	}
 
 	toDOM(): HTMLElement {
-		const container = document.createElement("div")
+		const container = document.createElement("span")
+		container.classList.add("cm-widget-container")
 		const preview = parseMarkdown(this.content)
 		container.innerHTML = preview.value.toString()
 		return container
