@@ -5,18 +5,7 @@ import { toKebab } from "@lib/textTransformation"
 import { getNodeTaskStatus } from "./task"
 import { treeIterator } from "./viewPlugin"
 
-const allowedClassNames = [
-	"InlineCode",
-	"CodeMark",
-	"LinkMark",
-	"TaskMarker",
-	"ATXHeading1",
-	"ATXHeading2",
-	"ATXHeading3",
-	"ATXHeading4",
-	"ATXHeading5",
-	"ATXHeading6"
-]
+const allowedClassNames = ["InlineCode", "CodeMark", "LinkMark", "TaskMarker"]
 
 // To avoid large nested mark dom elements for each attribute we mark all attributes at once
 export const setNodeAttrbutes = treeIterator(({ node, builder, view }) => {

@@ -28,8 +28,8 @@ export const WIDGET_MAP = [
 	// "HardBreak",
 	"Emphasis",
 	"StrongEmphasis",
-	"Strikethrough"
-	// "Link",
+	"Strikethrough",
+	"Link"
 	// "Image",
 	// "InlineCode",
 	// "HTMLTag",

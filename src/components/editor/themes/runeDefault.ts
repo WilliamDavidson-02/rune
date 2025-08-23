@@ -2,147 +2,77 @@ import { tags as t } from "@lezer/highlight"
 
 import { createTheme, type CreateThemeOptions } from "@lib/theme"
 
-export const defaultSettingsRuneLight: CreateThemeOptions["settings"] = {
-	background: "var(--color-light-base-900)",
-	foreground: "var(--color-light-base-000)",
-	selection: "var(--color-light-cyan-400)",
-	selectionMatch: "var(--color-light-orange-300)",
-	gutterBackground: "var(--color-light-base-900)",
-	gutterForeground: "var(--color-light-yellow-500)",
-	inlineCodeForegorund: "var(--color-light-yellow-200)",
-	inlineCodeBackground: "var(--color-light-yellow-400)",
-	linkMarkForeground: "var(--color-light-blue-300)",
-	linkMarkDecoration: "underline",
-	taskMarkerChecked: "var(--color-light-green-300)",
-	tooltipBackground: "var(--color-light-base-800)",
-	tooltipSelectedBackground: "var(--color-light-base-700)"
-}
+export const runeStyles: CreateThemeOptions["styles"] = [
+	{ tag: t.quote, color: "var(--tag-highlight-quote)" },
+	{ tag: t.comment, color: "var(--tag-highlight-comment)" },
 
-export const runeLightStyle: CreateThemeOptions["styles"] = [
-	{ tag: [t.quote], color: "var(--colo-light-base-000)" },
-	{ tag: [t.comment], color: "var(--color-light-base-500)" },
+	{ tag: t.bracket, color: "var(--tag-highlight-bracket)" },
+	{ tag: t.propertyName, color: "var(--tag-highlight-propertyName)" },
+	{ tag: t.meta, color: "var(--tag-highlight-meta)" },
+	{ tag: t.heading, color: "var(--tag-highlight-heading)" },
+
+	{ tag: t.className, color: "var(--tag-highlight-className)" },
+	{ tag: t.variableName, color: "var(--tag-highlight-variableName)" },
+	{ tag: t.atom, color: "var(--tag-highlight-atom)" },
+
+	{ tag: t.attributeName, color: "var(--tag-highlight-attributeName)" },
+	{ tag: t.number, color: "var(--tag-highlight-number)" },
+	{ tag: t.string, color: "var(--tag-highlight-string)" },
+	{ tag: t.bool, color: "var(--tag-highlight-bool)" },
+
+	{ tag: t.keyword, color: "var(--tag-highlight-keyword)" },
+	{ tag: t.typeName, color: "var(--tag-highlight-typeName)" },
+	{ tag: t.typeOperator, color: "var(--tag-highlight-typeOperator)" },
+	{ tag: t.operator, color: "var(--tag-highlight-operator)" },
+	{ tag: t.name, color: "var(--tag-highlight-name)" },
+
+	{ tag: t.regexp, color: "var(--tag-highlight-regexp)" },
+	{ tag: t.strong, color: "var(--tag-highlight-strong)", fontWeight: "bold" },
 	{
-		tag: [t.bracket, t.propertyName, t.meta, t.heading],
-		color: "var(--color-light-orange-200)"
-	},
-	{
-		tag: [t.className, t.variableName, t.atom],
-		color: "var(--color-light-yellow-300)"
-	},
-	{
-		tag: [t.attributeName, t.number, t.string, t.bool],
-		color: "var(--color-light-cyan-300)"
-	},
-	{
-		tag: [
-			t.keyword,
-			t.typeName,
-			t.typeOperator,
-			t.typeName,
-			t.operator,
-			t.name
-		],
-		color: "var(--color-light-green-300)"
-	},
-	{ tag: [t.regexp], color: "var(--color-light-cyan-200)" },
-	{ tag: [t.strong], fontWeight: "bold" },
-	{
-		tag: [t.emphasis],
+		tag: t.emphasis,
+		color: "var(--tag-highlight-emphasis)",
 		fontStyle: "italic"
 	},
 	{
 		tag: t.strikethrough,
+		color: "var(--tag-highlight-strikethrough)",
 		textDecoration: "line-through"
 	},
-	{
-		tag: [t.strong, t.emphasis, t.strikethrough],
-		color: "var(--colo-light-base-000)"
-	},
-	{
-		tag: t.url,
-		color: "var(--color-light-blue-300)",
-		textDecoration: "underline"
-	}
+
+	{ tag: t.url, color: "var(--tag-highlight-url)", textDecoration: "underline" }
 ]
+
+export const defaultSettingsRune: CreateThemeOptions["settings"] = {
+	background: "var(--cm-background)",
+	foreground: "var(--cm-foreground)",
+	selection: "var(--cm-selection)",
+	selectionMatch: "var(--cm-selectionMatch)",
+	gutterBackground: "var(--cm-gutterBackground)",
+	gutterForeground: "var(--cm-gutterForeground)",
+	inlineCodeForegorund: "var(--cm-inlineCodeForeground)",
+	inlineCodeBackground: "var(--cm-inlineCodeBackground)",
+	linkMarkForeground: "var(--cm-linkMarkForeground)",
+	linkMarkDecoration: "var(--cm-linkMarkDecoration)",
+	taskMarkerChecked: "var(--cm-taskMarkerChecked)",
+	tooltipBackground: "var(--cm-tooltipBackground)",
+	tooltipSelectedBackground: "var(--cm-tooltipSelectedBackground)"
+}
 
 export const runeLightInit = () => {
 	return createTheme({
 		theme: "light",
-		settings: defaultSettingsRuneLight,
-		styles: runeLightStyle
+		settings: defaultSettingsRune,
+		styles: runeStyles
 	})
 }
 
 export const runeLight = runeLightInit()
 
-export const defaultSettingsRuneDark: CreateThemeOptions["settings"] = {
-	background: "var(--color-dark-base-900)",
-	foreground: "var(--color-dark-base-000)",
-	selection: "var(--color-dark-cyan-400)",
-	selectionMatch: "var(--color-dark-orange-300)",
-	gutterBackground: "var(--color-dark-base-900)",
-	gutterForeground: "var(--color-dark-yellow-500)",
-	inlineCodeForegorund: "var(--color-dark-yellow-200)",
-	inlineCodeBackground: "var(--color-dark-yellow-400)",
-	linkMarkForeground: "var(--color-dark-blue-300)",
-	linkMarkDecoration: "underline",
-	taskMarkerChecked: "var(--color-dark-green-300)",
-	tooltipBackground: "var(--color-dark-base-800)",
-	tooltipSelectedBackground: "var(--color-dark-base-700)"
-}
-
-export const runeDarkStyle: CreateThemeOptions["styles"] = [
-	{ tag: [t.quote], color: "var(--colo-dark-base-000)" },
-	{ tag: [t.comment], color: "var(--color-dark-base-500)" },
-	{
-		tag: [t.bracket, t.propertyName, t.meta, t.heading],
-		color: "var(--color-dark-orange-200)"
-	},
-	{
-		tag: [t.className, t.variableName, t.atom],
-		color: "var(--color-dark-yellow-300)"
-	},
-	{
-		tag: [t.attributeName, t.number, t.string, t.bool],
-		color: "var(--color-dark-cyan-300)"
-	},
-	{
-		tag: [
-			t.keyword,
-			t.typeName,
-			t.typeOperator,
-			t.typeName,
-			t.operator,
-			t.name
-		],
-		color: "var(--color-dark-green-300)"
-	},
-	{ tag: [t.regexp], color: "var(--color-dark-cyan-200)" },
-	{ tag: [t.strong], fontWeight: "bold" },
-	{
-		tag: [t.emphasis],
-		fontStyle: "italic"
-	},
-	{
-		tag: t.strikethrough,
-		textDecoration: "line-through"
-	},
-	{
-		tag: [t.strong, t.emphasis, t.strikethrough],
-		color: "var(--colo-dark-base-000)"
-	},
-	{
-		tag: t.url,
-		color: "var(--color-dark-blue-300)",
-		textDecoration: "underline"
-	}
-]
-
 export const runeDarkInit = () => {
 	return createTheme({
 		theme: "dark",
-		settings: defaultSettingsRuneDark,
-		styles: runeDarkStyle
+		settings: defaultSettingsRune,
+		styles: runeStyles
 	})
 }
 

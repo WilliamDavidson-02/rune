@@ -58,3 +58,49 @@
     --color-dark-green-400: #596600;
     --color-dark-green-500: #2c3300;
 }
+
+html.dark {
+    --cm-background: var(--color-dark-base-900);
+    --cm-foreground: var(--color-dark-base-000);
+    --cm-selection: var(--color-dark-cyan-400);
+    --cm-selectionMatch: var(--color-dark-orange-300);
+    --cm-gutterBackground: var(--color-dark-base-900);
+    --cm-gutterForeground: var(--color-dark-yellow-500);
+    --cm-inlineCodeForeground: var(--color-dark-yellow-200);
+    --cm-inlineCodeBackground: var(--color-dark-yellow-400);
+    --cm-linkMarkForeground: var(--color-dark-blue-300);
+    --cm-linkMarkDecoration: underline;
+    --cm-taskMarkerChecked: var(--color-dark-green-300);
+    --cm-tooltipBackground: var(--color-dark-base-800);
+    --cm-tooltipSelectedBackground: var(--color-dark-base-700);
+
+    --tag-highlight-quote: var(--color-dark-base-000);
+    --tag-highlight-comment: var(--color-dark-base-500);
+
+    --tag-highlight-bracket: var(--color-dark-orange-200);
+    --tag-highlight-propertyName: var(--color-dark-orange-200);
+    --tag-highlight-meta: var(--color-dark-orange-200);
+    --tag-highlight-heading: var(--color-dark-orange-200);
+
+    --tag-highlight-className: var(--color-dark-yellow-300);
+    --tag-highlight-variableName: var(--color-dark-yellow-300);
+    --tag-highlight-atom: var(--color-dark-yellow-300);
+
+    --tag-highlight-attributeName: var(--color-dark-cyan-300);
+    --tag-highlight-number: var(--color-dark-cyan-300);
+    --tag-highlight-string: var(--color-dark-cyan-300);
+    --tag-highlight-bool: var(--color-dark-cyan-300);
+
+    --tag-highlight-keyword: var(--color-dark-green-300);
+    --tag-highlight-typeName: var(--color-dark-green-300);
+    --tag-highlight-typeOperator: var(--color-dark-green-300);
+    --tag-highlight-operator: var(--color-dark-green-300);
+    --tag-highlight-name: var(--color-dark-green-300);
+
+    --tag-highlight-regexp: var(--color-dark-cyan-200);
+    --tag-highlight-strong: var(--color-dark-base-000);
+    --tag-highlight-emphasis: var(--color-dark-base-000);
+    --tag-highlight-strikethrough: var(--color-dark-base-000);
+
+    --tag-highlight-url: var(--color-dark-blue-300);
+}
