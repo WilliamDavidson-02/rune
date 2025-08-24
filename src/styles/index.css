@@ -5,6 +5,8 @@
 @import "./dark.css";
 @import "./light.css";
 
+@import "./livePreview.css";
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 * {

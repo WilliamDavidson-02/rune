@@ -5,6 +5,7 @@ import {
 } from "@codemirror/language"
 import { type Extension } from "@codemirror/state"
 import { EditorView } from "@codemirror/view"
+import { classHighlighter } from "@lezer/highlight"
 import type { StyleSpec } from "types/style"
 
 export type Theme = "light" | "dark"
@@ -139,7 +140,11 @@ export const createTheme = ({
 	})
 
 	const highlightStyle = HighlightStyle.define(styles)
-	const extension = [themeExtension, syntaxHighlighting(highlightStyle)]
+	const extension = [
+		themeExtension,
+		syntaxHighlighting(highlightStyle),
+		syntaxHighlighting(classHighlighter)
+	]
 
 	return extension
 }
