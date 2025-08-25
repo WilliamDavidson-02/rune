@@ -26,9 +26,6 @@ export const WIDGET_MAP = [
 	// "Escape",
 	// "Entity",
 	// "HardBreak",
-	"Emphasis",
-	"StrongEmphasis",
-	"Strikethrough",
 	"Link"
 	// "Image",
 	// "HTMLTag",

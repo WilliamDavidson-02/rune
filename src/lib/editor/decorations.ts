@@ -6,7 +6,11 @@ import { isNodeWithInRanges } from "./livePreview"
 import { getNodeTaskStatus } from "./task"
 import { treeIterator } from "./viewPlugin"
 
-const previewClassNames = new Map([["CodeMark", " cm-code-mark-preview"]])
+const previewClassNames = new Map([
+	["CodeMark", " cm-mark-preview"],
+	["EmphasisMark", " cm-mark-preview"],
+	["StrikethroughMark", " cm-mark-preview"]
+])
 
 const allowedClassNames = [
 	"InlineCode",
@@ -35,7 +39,6 @@ export const setNodeAttrbutes = treeIterator(({ node, builder, view }) => {
 	const preview = previewClassNames.get(name)
 	if (preview && !inRange) {
 		attributes.class = attributes.class ? attributes.class + preview : preview
-		console.log({ name, class: attributes.class })
 	}
 
 	if (node.name === "TaskMarker") {
